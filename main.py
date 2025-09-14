@@ -101,7 +101,7 @@ sns.kdeplot(
     common_norm=False,
     alpha=0.4,
     linewidth=2,                                     # deixei a linha mais grossa para destacar
-    palette={"Homem": "blue", "Mulher": "purple"}     # cores específicas para cada sexo
+    palette={"Homem": "blue", "Mulher": "purple"}     # cores personalizadas para cada sexo
 )
 plt.title("Densidade do valor de gorjetas por sexo")
 plt.xlabel("Gorjeta (unidade monetária)")
