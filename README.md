@@ -1,4 +1,4 @@
-# Transform CSV file into graphics
+# 🗂️ Transform CSV file into graphics 📊
 
 ## Contextualization
 The density graphics describe the relative probability and help with the visualization of the informations, which are hard to analyze from datatables.
