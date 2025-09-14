@@ -13,16 +13,17 @@ The following table represents a client-relation (rows) and theirs attributes: t
 ## Objective
 Develop an algorithm using Python libraries as Seaborn, Pandas and Matplotlib to:
 
-a) Create a density graphic of total tips by sex.
-b) Create a density graphic of total tips by quantity of people at the table.
-c) Create a density graphic of total tips by weekday;
+a) Create a density graphic of total tips by sex.<br>
+b) Create a density graphic of total tips by quantity of people at the table.<br>
+c) Create a density graphic of total tips by weekday;<br>
 d) Based on the visualizations created in items a, b and c, what can be assessed in relation to this restaurant company?
 
 
 ## Hands-on
 
 ### Requirements
-* You must have Python installed.
+* You must have Python installed;
+* You must have Seaborn, Panda and Matplotlib libraries installed. `pip install seaborn matplotlib pandas`
 
 ### Execution
 * Run `python main.py` to make the out/ dir with the generated graphics.
@@ -30,13 +31,17 @@ d) Based on the visualizations created in items a, b and c, what can be assessed
 ### Expected
 * Three images with their respective density graphic.
 
-#### Density by sex
-<img width="1523" height="914" alt="image" src="https://github.com/user-attachments/assets/bea8e0a1-d92d-49ff-90ba-ce0c375c5430" />
+#### a) Density by sex:
+<img width="1513" height="907" alt="image" src="https://github.com/user-attachments/assets/12c1d38a-b181-4f1e-9c5d-07e6df19fa4e" />
 
 
-#### Density by people at the table
+#### b) Density by people at the table:
 <img width="1526" height="916" alt="image" src="https://github.com/user-attachments/assets/635cc10c-e64b-4f10-abea-9206598e09bc" />
 
 
-#### Density by weekdays:
+#### c) Density by weekdays:
 <img width="1524" height="915" alt="image" src="https://github.com/user-attachments/assets/03641fdc-7f74-4137-99ff-ab9794cb5b1c" />
+
+
+#### d) Assessment based on the graphics:
+
