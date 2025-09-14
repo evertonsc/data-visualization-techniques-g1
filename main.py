@@ -77,30 +77,11 @@ def _read_csv(path_csv: str) -> pd.DataFrame:
     return pd.read_csv(io.StringIO(clean), header=None, names=["_raw"])
 
 
-# Normaliza nomes de colunas (minusculas e sem espaços)
-def _normaliza_colunas(df: pd.DataFrame) -> pd.DataFrame:
-    df.columns = (
-        df.columns.astype(str)
-        .str.strip()
-        .str.lower()
-        .str.replace(" ", "_", regex=False)
-    )
-    renomear = {
-        "total_da_conta": "total_conta",
-        "total": "total_conta",
-        "tip": "gorjeta",
-        "smoker": "fumante",
-        "time": "tempo",
-        "size": "quantidade",
-    }
-    df = df.rename(columns={k: v for k, v in renomear.items() if k in df.columns})
-    return df
 
 
 # =============== CARREGAMENTO DOS DADOS ===============
 def load_data(path_csv: str) -> pd.DataFrame:
     df = _read_csv(path_csv)
-    df = _normaliza_colunas(df)
     return df
 
 
