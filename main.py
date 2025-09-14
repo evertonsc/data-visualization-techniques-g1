@@ -1,5 +1,3 @@
-# main.py
-# -*- coding: utf-8 -*-
 import os
 import pandas as pd
 import seaborn as sns
@@ -9,11 +7,10 @@ from io import StringIO
 # =============== CONFIGURAÇÕES GERAIS ===============
 
 # Definições de constantes para não ter que mudar em vários lugares caso o caminho mude. 
-INPUT_CSV = os.path.join("data", "Gorjetas.csv")      # caminho do arquivo de entrada
-OUT_DIR = "out"                                       # diretório de saída
-os.makedirs(OUT_DIR, exist_ok=True)
-
-sns.set_theme()         # personalização do estilo dos gráficos (background)
+INPUT_CSV = os.path.join("data", "Gorjetas.csv")        # caminho do arquivo de entrada
+OUT_DIR = "out"                                         # diretório de saída
+os.makedirs(OUT_DIR, exist_ok=True)                     # cria o diretório de saída, se não existir         
+sns.set_theme()                                         # personalização do estilo dos gráficos (background)
 
 # =============== CARREGAMENTO DOS DADOS ===============
 
@@ -48,11 +45,6 @@ def load_data(path_csv: str) -> pd.DataFrame:
         clean = _clean_csv_fullquoted(raw)
         df = pd.read_csv(StringIO(clean), encoding="utf-8", sep=",", quotechar='"')
 
-
-        # caso seja necessário salvar o CSV “arrumado” para futuras execuções
-        #with open(os.path.join(OUT_DIR, "Gorjetas_clean.csv"), "w", encoding="utf-8", newline="") as f:
-        #    f.write(clean)
-
     # normaliza nomes de colunas
     df.columns = (
         df.columns.str.strip()
@@ -65,42 +57,14 @@ def load_data(path_csv: str) -> pd.DataFrame:
 
 # =============== EXECUÇÃO PRINCIPAL ===============
 
-df = load_data(INPUT_CSV)
+dataframe = load_data(INPUT_CSV)
 
-# Esperado: total_conta, gorjeta, sexo, fumante, dia, tempo, quantidade
-# Converte tipos numéricos
-for col in ["total_conta", "gorjeta"]:
-    df[col] = pd.to_numeric(df[col], errors="coerce")
-
-df["quantidade"] = pd.to_numeric(df["quantidade"], errors="coerce").astype("Int64")
-
-# Ordenações úteis (opcional)
-ordem_dias = list(pd.Categorical(df["dia"]).categories)
-
-# Checagens rápidas
-assert df["gorjeta"].notna().any(), "Coluna 'gorjeta' está vazia após parsing."
-assert df["sexo"].notna().any(), "Coluna 'sexo' está vazia após parsing."
-assert df["quantidade"].notna().any(), "Coluna 'quantidade' está vazia após parsing."
-assert df["dia"].notna().any(), "Coluna 'dia' está vazia após parsing."
-
-# Resumo estatístico
-resumo = {
-    "por_sexo": df.groupby("sexo")["gorjeta"].agg(["count", "mean", "median", "std"]),
-    "por_quantidade": df.groupby("quantidade")["gorjeta"].agg(["count", "mean", "median", "std"]),
-    "por_dia": df.groupby("dia")["gorjeta"].agg(["count", "mean", "median", "std"]).reindex(ordem_dias)
-}
-with open(os.path.join(OUT_DIR, "resumo_estatistico.csv"), "w", encoding="utf-8") as f:
-    f.write("# Resumo de gorjetas por sexo\n")
-    resumo["por_sexo"].to_csv(f)
-    f.write("\n# Resumo de gorjetas por quantidade\n")
-    resumo["por_quantidade"].to_csv(f)
-    f.write("\n# Resumo de gorjetas por dia\n")
-    resumo["por_dia"].to_csv(f)
+# Dados esperados do csv (que podem ser acessados no dataframe): total_conta, gorjeta, sexo, fumante, dia, tempo, quantidade
 
 # =============== (a) DENSIDADE DE GORJETAS POR SEXO ===============
 plt.figure(figsize=(10, 6))
 sns.kdeplot(
-    data=df,
+    data=dataframe,
     x="gorjeta",
     hue="sexo",
     fill=True,
@@ -118,7 +82,7 @@ plt.close()
 # =============== (b) DENSIDADE POR QUANTIDADE NA MESA ===============
 plt.figure(figsize=(10, 6))
 sns.kdeplot(
-    data=df,
+    data=dataframe,
     x="gorjeta",
     hue="quantidade",
     fill=True,
@@ -135,19 +99,14 @@ plt.close()
 
 # =============== (c) DENSIDADE POR DIA DA SEMANA ===============
 plt.figure(figsize=(10, 6))
-hue_kwargs = {}
-if all(pd.notna(ordem_dias)):
-    hue_kwargs["hue_order"] = ordem_dias
-
 sns.kdeplot(
-    data=df,
+    data=dataframe,
     x="gorjeta",
     hue="dia",
     fill=True,
     common_norm=False,
     alpha=0.35,
-    linewidth=1.2,
-    **hue_kwargs
+    linewidth=1.2
 )
 plt.title("Densidade do valor de gorjetas por dia da semana")
 plt.xlabel("Gorjeta (unidade monetária)")
