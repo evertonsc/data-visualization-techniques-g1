@@ -12,6 +12,8 @@ OUT_DIR = "out"                                         # diretório de saída
 os.makedirs(OUT_DIR, exist_ok=True)                     # cria o diretório de saída, se não existir         
 sns.set_theme()                                         # personalização do estilo dos gráficos (background)
 
+
+
 # =============== CARREGAMENTO DOS DADOS ===============
 
 # Remove aspas externas de cada linha e converte aspas duplas duplicadas.
@@ -71,6 +73,7 @@ sns.kdeplot(
     common_norm=False,
     alpha=0.4,
     linewidth=2,        # deixei a linha mais grossa para destacar, pois são somente 2 densidades
+    palette={"Homem": "blue", "Mulher": "purple"}         # cores específicas para cada sexo
 )
 plt.title("Densidade do valor de gorjetas por sexo")
 plt.xlabel("Gorjeta (unidade monetária)")
