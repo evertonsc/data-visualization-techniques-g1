@@ -97,11 +97,11 @@ sns.kdeplot(
     data=dataframe,
     x="gorjeta",
     hue="sexo",
-    fill=True,
-    common_norm=False,
-    alpha=0.4,
-    linewidth=2,                                     # deixei a linha mais grossa para destacar
-    palette={"Homem": "blue", "Mulher": "purple"}     # cores personalizadas para cada sexo
+    fill=True,                                          # preenche a área sob a curva
+    common_norm=False,                                  # compara as formas das distribuições (picos, dispersão) sem distorção pelo tamanho do grupo.
+    alpha=0.4,                                          # Transparência
+    linewidth=2,                                        # deixei a linha mais grossa para destacar
+    palette={"Homem": "blue", "Mulher": "purple"}       # cores personalizadas para cada sexo
 )
 plt.title("Densidade do valor de gorjetas por sexo")
 plt.xlabel("Gorjeta (unidade monetária)")
@@ -116,9 +116,9 @@ sns.kdeplot(
     data=dataframe,
     x="gorjeta",
     hue="quantidade",
-    fill=True,
-    common_norm=False,
-    alpha=0.35,
+    fill=True,                                          # preenche a área sob a curva
+    common_norm=False,                                  # compara as formas das distribuições (picos, dispersão) sem distorção pelo tamanho do grupo.
+    alpha=0.35,                                         # Transparência
     linewidth=1.2,
 )
 plt.title("Densidade do valor de gorjetas por quantidade de pessoas na mesa")
@@ -134,9 +134,9 @@ sns.kdeplot(
     data=dataframe,
     x="gorjeta",
     hue="dia",
-    fill=True,
-    common_norm=False,
-    alpha=0.35,
+    fill=True,                                          # preenche a área sob a curva
+    common_norm=False,                                  # compara as formas das distribuições (picos, dispersão) sem distorção pelo tamanho do grupo.
+    alpha=0.35,                                         # Transparência
     linewidth=1.2,
 )
 plt.title("Densidade do valor de gorjetas por dia da semana")
